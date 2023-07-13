@@ -1,0 +1,159 @@
+.reg-container {
+  padding: 5% 25%;
+  position: relative;
+}
+.reg-title {
+  margin: 0;
+  font-weight: 400;
+  color: #2f4e5e;
+}
+.form-error {
+  font-size: 0.9rem;
+  color: #b22b27;
+}
+.reg-desc {
+  margin: 6px 0 30px 0;
+}
+.reg-left {
+  padding: 60px 30px 20px;
+  background: #e9e9e9;
+  transition-duration: 0.5s;
+  opacity: 1;
+  border-radius: 10px;
+}
+.reg-right {
+}
+.reg-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.reg-buttons a {
+  color: #2f4e5e;
+  font-size: 14px;
+}
+.google-auth {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.google-auth-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: cornflowerblue;
+  width: fit-content;
+  padding: 4px;
+  padding-right: 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.google-auth-btn:hover {
+  background-color: #3768c2;
+}
+.google-auth-btn p {
+  margin: 0;
+}
+.google-auth-btn img {
+  width: 40px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.sign-up {
+  margin: 60px 0 0;
+  font-size: 14px;
+  text-align: center;
+}
+.sign-up a {
+  color: #4092bb;
+}
+
+.input-button {
+  padding: 1.2rem 3.2rem;
+  outline: none;
+  text-transform: uppercase;
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  background: #4092bb;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.input-button:hover {
+  background: #2f4e5e;
+}
+
+.input-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: #252524;
+  transition: 0.3s;
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+.input-block input {
+  border: 0;
+  font-size: 14px;
+  outline: 0;
+  padding: 4px 0 0;
+  background-color: #e9e9e9;
+}
+
+.input-block input::-moz-placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+.input-block input:-ms-input-placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+.input-block input::placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+.input-block:focus-within {
+  border-color: #8c7569;
+}
+.input-block:focus-within .input-label {
+  color: rgba(140, 117, 105, 0.8);
+}
+
+@media (max-width: 750px) {
+  .reg-container {
+    padding: 10% 5%;
+    position: relative;
+  }
+
+  .reg-right {
+    display: none;
+  }
+  .input-button {
+    padding: 1rem 2rem;
+  }
+  .reg-title {
+    font-size: 25px;
+  }
+  .reg-desc {
+    font-size: 15px;
+  }
+  .reg-buttons {
+    flex-direction: column;
+    gap: 18px;
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,15 @@
+.btn-right {
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.completed {
+  color: #00b900;
+}
+.pending {
+  color: #db0000;
+}
+.give-test {
+  color: #c7a55b;
+}

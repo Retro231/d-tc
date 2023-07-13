@@ -1,0 +1,64 @@
+.mobile-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+  align-items: center;
+  background-color: #ffc107;
+}
+.head-left .mini-logo img {
+  height: 55px;
+}
+.mobile-menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 70%;
+  right: 3px;
+  top: 25px;
+  padding: 16px;
+  z-index: 999999;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: -1px 5px 12px 0px #352f15;
+}
+
+.mobile-menu .menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.mobile-menu .menu-list a {
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+}
+.mobile-menu .profile {
+  position: relative;
+}
+.menu-icon-open {
+  cursor: pointer;
+}
+.menu-icon-close {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  top: 8px;
+}
+.mobile-menu .profile .menu-icon-open {
+  position: absolute;
+  right: 10;
+}
+.mobile-menu-btn .when-logout .btn {
+  margin: 0px;
+  margin-right: 10px;
+}
+.active-package a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: #07c107;
+}

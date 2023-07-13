@@ -1,0 +1,106 @@
+.min-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 63px;
+}
+.min-header ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.min-header ul li {
+  list-style: none;
+  color: #3a3838;
+  padding: 0px 10px;
+}
+.min-header ul li a {
+  color: #3a3838;
+  text-decoration: none;
+  display: flex;
+  gap: 8px;
+}
+/* nav */
+.logo img {
+  height: 55px;
+}
+.navbar.myNav {
+  padding: 5px 56px;
+}
+.myNav .nav-link {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+.myNav .dropdown-menu {
+  border-radius: 8px;
+  box-shadow: -1px 5px 12px 0px grey;
+  border: none;
+}
+.myNav .dropdown-item:active {
+  background-color: #ffc107;
+}
+/* user profile */
+.user-info {
+  position: relative;
+}
+.user-profile {
+  max-width: 40px;
+  border: 2px solid #00ff00;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.user-profile img {
+  max-width: 100%;
+  border-radius: 50px;
+}
+.user-name {
+  font-weight: bold;
+  color: #000000;
+  text-transform: capitalize;
+  margin-top: 10px;
+}
+.user-mail {
+  color: gray;
+  font-size: 15px;
+}
+.user-profile-menu {
+  position: absolute;
+  z-index: 999;
+  background: #fff;
+  padding: 10px 20px;
+  right: -14px;
+  top: 42px;
+  border-radius: 8px;
+  box-shadow: -1px 5px 12px 0px grey;
+  display: block;
+}
+
+.user-profile-menu ul {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+.user-profile-menu ul li {
+  list-style: none;
+  padding-bottom: 10px;
+}
+.user-profile-menu ul li a {
+  text-decoration: none;
+  color: #18af08;
+}
+.user-profile-menu ul li:hover a {
+  color: #203d05;
+}
+/* when login */
+.when-login button,
+.when-logout button {
+  margin-left: 1rem;
+  font-weight: 500;
+}
+.when-login {
+  display: flex;
+  align-items: center;
+}
+.active-user {
+  display: flex;
+  flex-direction: column;
+}

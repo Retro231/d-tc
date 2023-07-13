@@ -1,0 +1,30 @@
+.pricing-card {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+.freePriceingBtn {
+  width: 290px;
+  height: 45px;
+  border-radius: 6px;
+  border: transparent;
+  background: #0d6efd;
+  color: white;
+}
+.premiumBtn {
+  background: #ffc107;
+  color: black;
+  font-weight: 500;
+}
+@media screen and (max-width: 1224px) {
+  .pricing-card {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 576px) {
+  .pricing-title p {
+    margin: 0 80px;
+  }
+}

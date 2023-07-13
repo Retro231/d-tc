@@ -1,0 +1,57 @@
+.mock-test-wrapper .title {
+  text-align: center;
+  padding: 100px 0px;
+}
+.mock-test-wrapper .mock-test-list {
+  display: flex;
+  gap: 20px;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0px 64px;
+}
+.single-mock-wrapper {
+  position: relative;
+  background: #ffc33c8c;
+  padding: 8px 32px;
+  flex-grow: 1;
+  flex-basis: 30%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid #ffc33c8c;
+  transition: 0.5s ease all;
+}
+.single-mock-wrapper:hover {
+  background: none;
+  border: 2px solid #ffc33c8c;
+}
+.single-mock-wrapper img {
+  width: 40px;
+}
+/* .lockBtn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+} */
+/* responsive */
+@media screen and (max-width: 768px) {
+  .single-mock-wrapper .btn-left h3 {
+    font-size: 20px;
+  }
+  .single-mock-wrapper {
+    flex-basis: 40%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .mock-test-wrapper .title {
+    padding: 50px 0px;
+  }
+  .mock-test-wrapper .mock-test-list {
+    gap: 1px;
+    padding: 0;
+  }
+  .single-mock-wrapper {
+    flex-basis: 100%;
+    border-radius: 0px;
+  }
+}
