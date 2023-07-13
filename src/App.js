@@ -5,6 +5,7 @@ import QuizMenu from "./components/feature/quiz/QuizMenu";
 import QuizResult from "./components/feature/quiz/QuizResult";
 import ShowQuiz from "./components/feature/quiz/ShowQuiz";
 import Register from "./components/feature/auth/Register";
+import UnderDev from "./components/UnderDev";
 import Login from "./components/feature/auth/Login";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -73,10 +74,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Main></Main>,
+      // element: <Main></Main>,
+      element: <UnderDev></UnderDev>,
       children: [
         {
-          path: "/",
+          path: "/xyz",
           element: <Home></Home>,
         },
         {
