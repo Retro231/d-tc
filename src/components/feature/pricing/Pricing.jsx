@@ -32,7 +32,10 @@ const Pricing = () => {
             </div>
             <div className="card-body">
               <h1 className="card-title pricing-card-title">
-                $0<small className="text-body-secondary fw-light">/mo</small>
+                £0
+                <small className="text-body-secondary fw-light">
+                  /unlimited
+                </small>
               </h1>
               <ul className="list-unstyled mt-3 mb-4">
                 <li>Free Mock Test</li>
@@ -64,8 +67,10 @@ const Pricing = () => {
             </div>
             <div className="card-body">
               <h1 className="card-title pricing-card-title">
-                $4.99
-                <small className="text-body-secondary fw-light">/mo</small>
+                £1.00
+                <small className="text-body-secondary fw-light">
+                  /unlimited
+                </small>
               </h1>
               <ul className="list-unstyled mt-3 mb-4">
                 <li>All 750+ DVSA revision questions</li>
