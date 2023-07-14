@@ -18,8 +18,8 @@ const BuyButtonComponent = () => {
         <stripe-buy-button
           client-reference-id={user && user.uid}
           customer-email={user && user.email}
-          buy-button-id="buy_btn_1NHv7sEpxgMDK8rjcKJIJ1mV"
-          publishable-key="pk_test_51LOHwtEpxgMDK8rjzvhZ8jLEYWt1impUZLfiml6le8xt5l1ggcJje0lgAgHlXpB6GEP7hULJOSUNCoFy1LzeMuKN001c7HP5jj"
+          buy-button-id="buy_btn_1NTuVWJToJkpvaJvIA9AmI39"
+          publishable-key="pk_live_51MtkMPJToJkpvaJvlAtY6rPCnhvLrxfb2AhDR9RGAdrmly6blmDimRCeaGsUiML3zQUeZ54MvEtGi3Qjldaei8qo00pFoQKNue"
         ></stripe-buy-button>
       </div>
     </>
