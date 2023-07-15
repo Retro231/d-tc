@@ -55,6 +55,11 @@ const Header = () => {
       updateUser();
     }
   });
+
+  const handleLogoClick = () => {
+    navigate("/#");
+    // window.location.reload(false);
+  };
   return (
     <>
       {/* <div className="min-header">

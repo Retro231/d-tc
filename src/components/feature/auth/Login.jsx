@@ -85,9 +85,7 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.email && touched.email ? (
-                <p className="form-error">{errors.email}</p>
-              ) : null}
+
             </div>
             <div className="input-block">
               <label htmlFor="password" className="input-label">
@@ -106,6 +104,9 @@ const Login = () => {
               {errors.password && touched.password ? (
                 <p className="form-error">{errors.password}</p>
               ) : null}
+            </div>
+            <div className="forgotPass">
+              <Link to={"/resetpassword"}>Forgot your password?</Link>
             </div>
             <div className="reg-buttons">
               {loading ? (

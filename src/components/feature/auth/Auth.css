@@ -133,6 +133,26 @@
   color: rgba(140, 117, 105, 0.8);
 }
 
+.forgotPass {
+  padding-left: 3px;
+}
+.forgotPass a {
+  font-size: 15px;
+}
+.after-reset {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 600px;
+  background: #e9e9e9;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+.after-reset .section-2 {
+  text-align: end;
+}
 @media (max-width: 750px) {
   .reg-container {
     padding: 10% 5%;
