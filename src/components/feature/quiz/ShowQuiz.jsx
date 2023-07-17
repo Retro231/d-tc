@@ -12,11 +12,11 @@ const ShowQuiz = () => {
     <>
       <ErrorBoundary
         fallback={
-          <div className="fallbackMsg">
+          <div className="w-[320px] sm:w-[60%] bg-red-400 sm:text-[22px] no font-medium p-6 m-auto mt-6">
             <span>
-              Opps!!Looks like you've reload your page.Please restart your quiz.
-            </span>
-            <Link to={"/"}>Click me</Link>
+              Opps!! Looks like you've reload your page. Please restart your quiz.
+            </span> <br></br>
+            <Link className="text-blue-800 underline" to={"/"}>Click me</Link>
           </div>
         }
       >

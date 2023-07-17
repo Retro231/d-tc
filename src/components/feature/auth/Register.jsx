@@ -1,4 +1,3 @@
-// Render Prop
 import "./Auth.css";
 import React from "react";
 import { useFormik } from "formik";

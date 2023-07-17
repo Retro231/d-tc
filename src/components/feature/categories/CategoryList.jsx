@@ -3,7 +3,7 @@ import catergoryList from "../../../api/categoryList";
 import Category from "./Category";
 const CategoryList = () => {
   return (
-    <div className="category-list">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mx-4 md:mx-8 gap-2">
       {catergoryList.map((item, index) => {
         return (
           <Category

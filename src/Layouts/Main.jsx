@@ -1,21 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/feature/Header/Header";
-import { useMediaQuery } from "react-responsive";
 import Footer from "../components/feature/footer/Footer";
 import { Outlet } from "react-router-dom";
-import ScrollToTop from "react-scroll-to-top";
-import MobileHeader from "../components/feature/MobileHeader/MobileHeader";
+import { ArrowUpCircleIcon } from "@heroicons/react/24/outline";
 
 const Main = () => {
-  const isBigScreen = useMediaQuery({ query: "(min-width: 1225px)" });
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const [scrollTop, setScrollTop] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 340) {
+        setScrollTop(true);
+      } else {
+        setScrollTop(false);
+      }
+    });
+  }, []);
+  const bottomToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <div id="#">
-      {isBigScreen && <Header />}
-      {isTabletOrMobile && <MobileHeader />}
+      <Header />
       <Outlet></Outlet>
       <Footer />
-      <ScrollToTop smooth />
+      {scrollTop && (
+        <div className="right-1 md:right-6 bottom-8 z-50 fixed">
+          <ArrowUpCircleIcon
+            className="text-amber-600 w-[45px] h-[45px] bg-slate-900 rounded-full cursor-pointer"
+            onClick={bottomToTop}
+          />
+        </div>
+      )}
     </div>
   );
 };

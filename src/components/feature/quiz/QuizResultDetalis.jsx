@@ -4,6 +4,7 @@ import { Col, Row } from "react-bootstrap";
 const QuizResultDetalis = ({ index, questionData, userSelectedAns }) => {
   const { correctAnswer, question, answers, explanation, content, mediaType } =
     questionData;
+  console.log(explanation);
   const option1 = useRef(null);
   const option2 = useRef(null);
   const option3 = useRef(null);
@@ -43,16 +44,17 @@ const QuizResultDetalis = ({ index, questionData, userSelectedAns }) => {
   });
   return (
     <>
-      <div className="result-detalis-ques text-center">
-        <div>
-          <div className="result-question">
-            <h3>
+      <div className="text-center">
+        <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center m-5">
+            <h3 className="text-sm font-medium my-2 sm:w-[75%] text-center">
               {index + 1}. {question}
             </h3>
           </div>
-          <div className="content text-center">
+          <div className="">
             {mediaType === "image" && content && (
               <img
+                className="w-[350px] max-[320px]:w-[300px]  h-60 max-[320px]:h-auto mb-5"
                 src={`http://appsbreaking.com/qimage/${content}`}
                 alt="content"
               />
@@ -73,35 +75,41 @@ const QuizResultDetalis = ({ index, questionData, userSelectedAns }) => {
               {explanation}
             </p>
           </div>
-          <div className="result_options">
-            <Row>
-              <Col>
-                <label ref={option1} id="0">
-                  {answers[0]}
-                </label>
-              </Col>
-              <Col>
-                <label ref={option2} id="1">
-                  {answers[1]}
-                </label>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <label ref={option3} id="2">
-                  {answers[2]}
-                </label>
-              </Col>
-              <Col>
-                <label ref={option4} id="3">
-                  {answers[3]}
-                </label>
-              </Col>
-            </Row>
+          <div className="flex flex-col items-center w-full gap-1 my-5">
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium rounded-md border-2 border-transparent w-full sm:w-[60%]"
+              ref={option1}
+              id="0"
+            >
+              {answers[0]}
+            </label>
+
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium rounded-md border-2 border-transparent w-full sm:w-[60%]"
+              ref={option2}
+              id="1"
+            >
+              {answers[1]}
+            </label>
+
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium rounded-md border-2 border-transparent w-full sm:w-[60%]"
+              ref={option3}
+              id="2"
+            >
+              {answers[2]}
+            </label>
+
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium  rounded-md border-2 border-transparent w-full sm:w-[60%]"
+              ref={option4}
+              id="3"
+            >
+              {answers[3]}
+            </label>
           </div>
         </div>
       </div>
-      <hr></hr>
     </>
   );
 };

@@ -1,21 +1,15 @@
-import "./Header.css";
-import { Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import { Link } from "react-router-dom";
 import logoIcon from "./../../assets/logo-icon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { setLogin, setSubscribed } from "../auth/authSlice";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Offcanvas from "react-bootstrap/Offcanvas";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { Bars3BottomRightIcon } from "@heroicons/react/24/solid";
 
 const Header = () => {
-  const [show, setShow] = useState(false);
+  const [profileShow, setProfileShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = getAuth();
@@ -29,8 +23,7 @@ const Header = () => {
     } catch (error) {
       console.log(error);
     }
-
-    setShow(false);
+    setProfileShow(false);
   };
   useEffect(() => {
     const user = auth.currentUser;
@@ -56,156 +49,165 @@ const Header = () => {
     }
   });
 
-  const handleLogoClick = () => {
-    navigate("/#");
-    // window.location.reload(false);
-  };
+  const menuList = [
+    {
+      title: "Home",
+      path: "/#",
+    },
+    {
+      title: "Mock Test",
+      path: "/#mock",
+    },
+    {
+      title: "Practice",
+      path: "/#categories",
+    },
+    {
+      title: "Pricing",
+      path: "/pricing",
+    },
+    {
+      title: "Help",
+      path: "/#footer",
+    },
+  ];
+
   return (
-    <>
-      {/* <div className="min-header">
-        <div>
-          <ul>
-            <li>
-              <DeviceMobileIcon size={24} />
-              +8801400887388
-            </li>
-            <li>
-              <MailIcon size={24} />
-              nazshakib02@gmail.com
-            </li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li>support</li>
-            <li>contact</li>
-          </ul>
-        </div>
-      </div> */}
-      {["lg"].map((expand) => (
-        <Navbar
-          sticky="top"
-          key={expand}
-          bg="warning"
-          expand={expand}
-          className="myNav"
-        >
-          <Container fluid>
-            <Navbar.Brand href="/#">
-              <div className="logo">
-                {/* <h3>LOGO</h3> */}
-                <img src={logoIcon} alt="logo" />
+    <div>
+      <div className="w-full px-8 py-2 flex justify-between items-center bg-amber-300 fixed z-50">
+        {/* logo */}
+        <HashLink to="/#" smooth>
+          <div className="w-16">
+            {/* <h3>LOGO</h3> */}
+            <img className="w-full" src={logoIcon} alt="logo" />
+          </div>
+        </HashLink>
+        <div className="flex gap-6 items-center ">
+          {/* nav */}
+          <section className="hidden lg:block">
+            <div className="flex gap-4 text-gray-800 font-semibold">
+              {menuList.map((item, index) => {
+                return (
+                  <HashLink key={index} to={item.path} smooth>
+                    {item.title}
+                  </HashLink>
+                );
+              })}
+            </div>
+          </section>
+          {/* btn */}
+          {!isLogedin ? (
+            <>
+              <div className="">
+                <button className="btn mr-1" onClick={() => navigate("/login")}>
+                  Log In
+                </button>
+                <button className="btn" onClick={() => navigate("/register")}>
+                  Sign Up
+                </button>
               </div>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-${expand}`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-              placement="end"
-            >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Offcanvas
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link as={Link} to="/" eventKey="1">
-                    Home
-                  </Nav.Link>
-                  <NavDropdown
-                    title="Features"
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
+            </>
+          ) : (
+            <>
+              {/* toggle button */}
+
+              <div className="">
+                <div
+                  className="w-10 h-auto cursor-pointer"
+                  onClick={() => {
+                    setProfileShow((prev) => !prev);
+                  }}
+                >
+                  <Bars3BottomRightIcon className="block text-slate-800 lg:hidden" />
+                  <UserCircleIcon className="text-slate-800 hidden lg:block" />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+      {/* user Profile */}
+      <div
+        className={`fixed w-[250px] h-max ${
+          profileShow ? "right-1" : "-right-[250px]"
+        }  top-[72.4px] bg-slate-600 text-gray-100 z-20 transition-all duration-500 rounded-md text-left text-[20px] sm:text-[18px]`}
+      >
+        <ul className="m-4">
+          {/* profile pic */}
+          <section className="lg:hidden">
+            <li className="text-right">
+              <div
+                className="w-10 h-auto cursor-pointer"
+                onClick={() => {
+                  setProfileShow((prev) => !prev);
+                }}
+              >
+                <img
+                  className="w-full rounded-full border-2 border-green-500"
+                  alt="profile"
+                  src="https://tse4.mm.bing.net/th/id/OIP.6yuCxX3agcmqdUaie4OZwQAAAA?pid=ImgDet&rs=1"
+                />
+              </div>
+            </li>
+          </section>
+          {/* user info */}
+          <section className="mb-2">
+            <li className="text-mid capitalize tracking-tight">
+              {isLogedin && userRegInfo.name}
+            </li>
+            <li className="text-gray-300 text-[15px]">
+              {isLogedin && userRegInfo.email}
+            </li>
+            <hr className="my-2" />
+          </section>
+          {/* nav */}
+          <section className="lg:hidden">
+            <div className="flex flex-col gap-1">
+              {menuList.map((item, index) => {
+                return (
+                  <HashLink
+                    key={index}
+                    to={item.path}
+                    onClick={() => {
+                      setProfileShow(false);
+                    }}
+                    smooth
                   >
-                    <NavDropdown.Item as={HashLink} to="/#mock">
-                      Mock Tests
-                    </NavDropdown.Item>
-                    <NavDropdown.Item as={HashLink} to="/#categories">
-                      Practice
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  {/* <NavDropdown
-                    title="Resources"
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}
-                  >
-                    <NavDropdown.Item href="#action4" disabled>
-                      Instructions
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action6" disabled>
-                      Blogs
-                    </NavDropdown.Item>
-                  </NavDropdown> */}
-                  <Nav.Link as={HashLink} to="/pricing#pricing" eventKey="4">
-                    Pricing
-                  </Nav.Link>
-                  <Nav.Link href="#footer" eventKey="5">
-                    Help
-                  </Nav.Link>
-                </Nav>
-                {!isLogedin ? (
-                  <>
-                    <div className="when-logout">
-                      <Button
-                        variant="outline-success"
-                        onClick={() => navigate("/login")}
-                      >
-                        Log In
-                      </Button>
-                      <Button
-                        variant="success"
-                        onClick={() => navigate("/register")}
-                      >
-                        Sign Up
-                      </Button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="user-info">
-                      <div
-                        className="user-profile"
-                        onClick={() => {
-                          setShow((prev) => !prev);
-                        }}
-                      >
-                        <img
-                          alt="profile"
-                          src="https://tse4.mm.bing.net/th/id/OIP.6yuCxX3agcmqdUaie4OZwQAAAA?pid=ImgDet&rs=1"
-                        />
-                      </div>
-                      {show && (
-                        <div className="user-profile-menu">
-                          <ul>
-                            <li className="user-name">
-                              {isLogedin && userRegInfo.name}
-                            </li>
-                            <li className="user-mail">
-                              {isLogedin && userRegInfo.email}
-                            </li>
-                            <hr />
-                            <li>
-                              <HashLink to="/pricing#pricing">
-                                Active Package
-                              </HashLink>
-                            </li>
-                            <hr />
-                            <li>
-                              <Button variant="danger" onClick={handleLogout}>
-                                Log Out
-                              </Button>
-                            </li>
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      ))}
-    </>
+                    {item.title}
+                  </HashLink>
+                );
+              })}
+            </div>
+            <hr className="my-2" />
+          </section>
+          {/* active package */}
+          <section>
+            <li>
+              <HashLink
+                to="/pricing#pricing"
+                onClick={() => {
+                  setProfileShow(false);
+                }}
+              >
+                Active Package
+              </HashLink>
+            </li>
+            <hr className="my-2" />
+          </section>
+          {/* logout */}
+          <section>
+            <li>
+              <button
+                className="btn border-red-500 hover:border-red-500 bg-red-600 hover:bg-red-700 font-bold"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
+            </li>
+          </section>
+        </ul>
+      </div>
+    </div>
   );
 };
 
