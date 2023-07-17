@@ -85,7 +85,6 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-
             </div>
             <div className="input-block">
               <label htmlFor="password" className="input-label">
@@ -105,7 +104,7 @@ const Login = () => {
                 <p className="form-error">{errors.password}</p>
               ) : null}
             </div>
-            <div className="forgotPass">
+            <div className="forgotPass text-blue-900 underline my-1 mb-2">
               <Link to={"/resetpassword"}>Forgot your password?</Link>
             </div>
             <div className="reg-buttons">

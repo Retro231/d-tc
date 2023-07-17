@@ -5,8 +5,8 @@ import QuizMenu from "./components/feature/quiz/QuizMenu";
 import QuizResult from "./components/feature/quiz/QuizResult";
 import ShowQuiz from "./components/feature/quiz/ShowQuiz";
 import Register from "./components/feature/auth/Register";
-// import UnderDev from "./components/UnderDev";
 import Login from "./components/feature/auth/Login";
+import ResetPassword from "./components/feature/auth/ResetPassword";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -22,7 +22,6 @@ import { ques_db } from "./config/firebase";
 import { getAuth } from "firebase/auth";
 import Pricing from "./components/feature/pricing/Pricing";
 import Main from "./Layouts/Main";
-import ResetPassword from "./components/feature/auth/ResetPassword";
 function App() {
   const dispatch = useDispatch();
   const auth = getAuth();
@@ -32,7 +31,7 @@ function App() {
         collection(db, "users", uid, `subscriptionInfo`)
       );
       querySnapshot.forEach((doc) => {
-        console.log(doc.data().subscribe);
+        // console.log(doc.data().subscribe);
         dispatch(setSubscribed(doc.data().subscribe));
       });
     };
@@ -97,7 +96,7 @@ function App() {
     },
     {
       path: "/resetpassword",
-      element: <ResetPassword></ResetPassword>,
+      element: <ResetPassword />,
     },
     {
       path: "/showQuiz",
@@ -114,7 +113,7 @@ function App() {
   ]);
 
   return (
-    <div className="App">
+    <div className="overflow-hidden">
       <RouterProvider router={router}></RouterProvider>
     </div>
   );
