@@ -35,7 +35,7 @@ const Quiz = ({ title }) => {
   const getTrnsQues = async () => {
     dispatch(setLoading(true));
     const result = await axios.post(
-      "http://https://d-ts.vercel.app/getTrnsData",
+      "https://d-ts.vercel.app/getTrnsData",
       forTrnsQues
     );
 
