@@ -1,9 +1,13 @@
 // import questionCircleIcon from "./../../assets/question-circle-fill.svg";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import axios from "axios";
 // import ReactPlayer from "react-player";
 import { next, prev, setRegAns, resetQuiz } from "./quizSlice";
+import { setLoading } from "../../../appSlice";
 import { useNavigate } from "react-router-dom";
+import LoadingPage from "../../../utils/LoadingPage/LoadingPage";
 const initialTime = {
   min: 50,
   sec: 0,
@@ -13,18 +17,46 @@ const Quiz = ({ title }) => {
   const [checked, setChecked] = useState("");
   const [time, setTime] = useState(initialTime);
   const [progressCount, setProgressCount] = useState(0);
+  const [transData, setTransData] = useState(null);
+  const [translate, setTranslate] = useState(false);
+
   // variable and redux state
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const title = location.state.title;
+  const { loading } = useSelector((state) => state.app.value);
   const state = useSelector((state) => state.quiz.value);
   const { testState, questions, currentIndex, regAns } = state;
   const { question, answers, correctAnswer, mediaType, content } =
     questions[currentIndex];
 
+  //storing question and answer for translation;
+  const forTrnsQues = { question, answers };
+  const getTrnsQues = async () => {
+    dispatch(setLoading(true));
+    const result = await axios.post(
+      "http://localhost:9001/getTrnsData",
+      forTrnsQues
+    );
+
+    setTransData(result.data);
+    dispatch(setLoading(false));
+
+    console.log(result.data);
+  };
+
+  const handleTranslateBtn = () => {
+    transData === null && getTrnsQues();
+    setTranslate((prev) => {
+      return !prev;
+    });
+  };
+
   const percentagePerQuestion = (1 / questions.length) * 100;
   // handle submit
   const handleSubmit = () => {
+    setTransData(null);
+    setTranslate(false);
     navigate("/quizResult", {
       state: { title: title },
       replace: true,
@@ -32,6 +64,8 @@ const Quiz = ({ title }) => {
   };
   // handle quit
   const handleQuit = () => {
+    setTransData(null);
+    setTranslate(false);
     setChecked("");
     setProgressCount(0);
     dispatch(resetQuiz());
@@ -88,7 +122,7 @@ const Quiz = ({ title }) => {
     const { style } = event.target.parentNode;
     setChecked(value);
     dispatch(setRegAns({ value, currentQues: currentIndex }));
-    console.log({ correctAnswer, value });
+    // console.log({ correctAnswer, value });
     if (value === `${correctAnswer}`) {
       // here value is number,correctAnswer is char;
       style.border = "2px solid #00FF00";
@@ -102,6 +136,8 @@ const Quiz = ({ title }) => {
   };
   // handle Next
   const handleNext = () => {
+    setTransData(null);
+    setTranslate(false);
     if (questions.length > currentIndex + 1) {
       dispatch(next());
       if (!regAns[currentIndex + 1]) {
@@ -121,10 +157,12 @@ const Quiz = ({ title }) => {
         return prev + percentagePerQuestion;
       });
     }
-    console.log(regAns);
+    // console.log(regAns);
   };
   // handle previous
   const handlePrev = () => {
+    setTransData(null);
+    setTranslate(false);
     if (currentIndex !== 0) {
       dispatch(prev());
       setChecked(regAns[currentIndex - 1]);
@@ -146,12 +184,13 @@ const Quiz = ({ title }) => {
   };
   return (
     <>
+      {loading && <LoadingPage />}
       <div className="w-[100%] h-screen p-4 md:p-8  md:px-24 mx-auto bg-slate-900 text-gray-300 mb-20">
         {/* meta */}
         <div className="w-full">
-          <div class="w-full mb-2 h-3 rounded-full bg-gray-800">
+          <div className="w-full mb-2 h-3 rounded-full bg-gray-800">
             <div
-              class="max-w-full h-3 rounded-full bg-orange-500"
+              className="max-w-full h-3 rounded-full bg-orange-500"
               style={{ width: progressCount + "%" }}
             ></div>
           </div>
@@ -169,14 +208,19 @@ const Quiz = ({ title }) => {
           </div>
         </div>
         {/* questions */}
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col items-center m-3 sm:m-5">
+        <div className="relative flex flex-col items-center">
+          <div className="flex flex-col items-center m-3 mt-5 sm:m-5">
             <h5 className="text-sm font-bold">
               Question: {currentIndex + 1} / {questions.length} :
             </h5>
             <h3 className="text-sm font-medium my-2 sm:w-[75%] text-center max-[375px]:font-normal">
               {question}
             </h3>
+            {translate && (
+              <h3 className="text-sm font-medium my-2 sm:w-[75%] text-center max-[375px]:font-normal">
+                {transData === null ? "" : transData.question}
+              </h3>
+            )}
           </div>
 
           <div className="">
@@ -203,76 +247,122 @@ const Quiz = ({ title }) => {
           </div>
 
           {/* <img src={questionCircleIcon} alt="icon" /> */}
+          {/* translate btn */}
+          <div className="inline-block absolute -top-12 sm:top-4 right-0 text-center">
+            <span>Translate to :</span>
+            <div className="flex gap-2 items-center mt-1">
+              <button
+                className={`w-[60px] h-[30px]  rounded-full flex flex-row items-center ease-in-out duration-500 ${
+                  !translate
+                    ? "bg-gray-600 justify-start"
+                    : "bg-green-600 justify-end"
+                }`}
+                onClick={handleTranslateBtn}
+              >
+                <div
+                  className={`w-[25px] h-[25px] rounded-full m-1 ${
+                    !translate ? "bg-gray-300" : "bg-red-600"
+                  } `}
+                ></div>
+              </button>
+              <p className="">Bangla</p>
+            </div>
+          </div>
         </div>
         {/* options */}
         <div className="grid sm:grid-cols-2 gap-2">
-          <label
-            className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
-            htmlFor="option1"
-            style={{ backgroundColor: checked === "0" && "palegoldenrod" }}
-          >
-            <input
-              className="appearance-none"
-              id="option1"
-              type="radio"
-              value="0"
-              name="option"
-              checked={checked === "0"}
-              onChange={handleChange}
-            />
-            {answers[0]}
-          </label>
-
-          <label
-            className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
-            htmlFor="option2"
-            style={{ backgroundColor: checked === "1" && "palegoldenrod" }}
-          >
-            <input
-              className="appearance-none"
-              id="option2"
-              type="radio"
-              value="1"
-              name="option"
-              checked={checked === "1"}
-              onChange={handleChange}
-            />
-            {answers[1]}
-          </label>
-
-          <label
-            className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
-            htmlFor="option3"
-            style={{ backgroundColor: checked === "2" && "palegoldenrod" }}
-          >
-            <input
-              className="appearance-none"
-              id="option3"
-              type="radio"
-              value="2"
-              name="option"
-              checked={checked === "2"}
-              onChange={handleChange}
-            />
-            {answers[2]}
-          </label>
-
-          <label
-            className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
-            htmlFor="option4"
-            style={{ backgroundColor: checked === "3" && "palegoldenrod" }}
-          >
-            <input
-              className="appearance-none"
-              id="option4"
-              type="radio"
-              value="3"
-              name="option"
-              checked={checked === "3"}
-              onChange={handleChange}
-            />
-            {answers[3]}
-          </label>
+          <div className="flex flex-col gap-1">
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
+              htmlFor="option1"
+              style={{ backgroundColor: checked === "0" && "palegoldenrod" }}
+            >
+              <input
+                className="appearance-none"
+                id="option1"
+                type="radio"
+                value="0"
+                name="option"
+                checked={checked === "0"}
+                onChange={handleChange}
+              />
+              {answers[0]}
+            </label>
+            {translate && (
+              <label className="py-2 text-gray-300 font-medium pl-2 rounded-md border-2 border-transparent leading-5">
+                {transData !== null && transData.answers[0]}
+              </label>
+            )}
+          </div>
+          <div className="flex flex-col gap-1">
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
+              htmlFor="option2"
+              style={{ backgroundColor: checked === "1" && "palegoldenrod" }}
+            >
+              <input
+                className="appearance-none"
+                id="option2"
+                type="radio"
+                value="1"
+                name="option"
+                checked={checked === "1"}
+                onChange={handleChange}
+              />
+              {answers[1]}
+            </label>
+            {translate && (
+              <label className="py-2 text-gray-300 font-medium pl-2 rounded-md border-2 border-transparent leading-5">
+                {transData !== null && transData.answers[1]}
+              </label>
+            )}
+          </div>
+          <div className="flex flex-col gap-1">
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
+              htmlFor="option3"
+              style={{ backgroundColor: checked === "2" && "palegoldenrod" }}
+            >
+              <input
+                className="appearance-none"
+                id="option3"
+                type="radio"
+                value="2"
+                name="option"
+                checked={checked === "2"}
+                onChange={handleChange}
+              />
+              {answers[2]}
+            </label>
+            {translate && (
+              <label className="py-2 text-gray-300 font-medium pl-2 rounded-md border-2 border-transparent leading-5">
+                {transData !== null && transData.answers[2]}
+              </label>
+            )}
+          </div>
+          <div className="flex flex-col gap-1">
+            <label
+              className="py-2 bg-gray-400 text-slate-900 font-medium pl-2 rounded-md border-2 border-transparent leading-5"
+              htmlFor="option4"
+              style={{ backgroundColor: checked === "3" && "palegoldenrod" }}
+            >
+              <input
+                className="appearance-none"
+                id="option4"
+                type="radio"
+                value="3"
+                name="option"
+                checked={checked === "3"}
+                onChange={handleChange}
+              />
+              {answers[3]}
+            </label>
+            {translate && (
+              <label className="py-2 text-gray-300 font-medium pl-2 rounded-md border-2 border-transparent leading-5">
+                {transData !== null && transData.answers[3]}
+              </label>
+            )}
+          </div>
         </div>
         {/* action  */}
         <div className="fixed w-full left-0 bottom-0 py-4 px-24 bg-slate-800">
