@@ -209,7 +209,7 @@ const Quiz = ({ title }) => {
         </div>
         {/* questions */}
         <div className="relative flex flex-col items-center">
-          <div className="flex flex-col items-center m-3 mt-5 sm:m-5">
+          <div className="flex flex-col items-center m-3 mt-8 sm:m-5">
             <h5 className="text-sm font-bold">
               Question: {currentIndex + 1} / {questions.length} :
             </h5>
@@ -248,26 +248,28 @@ const Quiz = ({ title }) => {
 
           {/* <img src={questionCircleIcon} alt="icon" /> */}
           {/* translate btn */}
-          <div className="inline-block absolute -top-12 sm:top-4 right-0 text-center">
-            <span>Translate to :</span>
-            <div className="flex gap-2 items-center mt-1">
-              <button
-                className={`w-[60px] h-[30px]  rounded-full flex flex-row items-center ease-in-out duration-500 ${
-                  !translate
-                    ? "bg-gray-600 justify-start"
-                    : "bg-green-600 justify-end"
-                }`}
-                onClick={handleTranslateBtn}
-              >
-                <div
-                  className={`w-[25px] h-[25px] rounded-full m-1 ${
-                    !translate ? "bg-gray-300" : "bg-red-600"
-                  } `}
-                ></div>
-              </button>
-              <p className="">Bangla</p>
+          {testState === "practice" && (
+            <div className="inline-block absolute -top-6 sm:top-4 right-0 text-center">
+              <span>Translate to :</span>
+              <div className="flex gap-2 items-center mt-1">
+                <button
+                  className={`w-[60px] h-[30px]  rounded-full flex flex-row items-center ease-in-out duration-500 ${
+                    !translate
+                      ? "bg-gray-600 justify-start"
+                      : "bg-green-600 justify-end"
+                  }`}
+                  onClick={handleTranslateBtn}
+                >
+                  <div
+                    className={`w-[25px] h-[25px] rounded-full m-1 ${
+                      !translate ? "bg-gray-300" : "bg-red-600"
+                    } `}
+                  ></div>
+                </button>
+                <p className="">Bangla</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         {/* options */}
         <div className="grid sm:grid-cols-2 gap-2">
