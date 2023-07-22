@@ -248,7 +248,7 @@ const Quiz = ({ title }) => {
 
           {/* <img src={questionCircleIcon} alt="icon" /> */}
           {/* translate btn */}
-          {testState === "practice" && (
+          {testState === "notthistime" && (
             <div className="inline-block absolute -top-6 sm:top-4 right-0 text-center">
               <span>Translate to :</span>
               <div className="flex gap-2 items-center mt-1">
