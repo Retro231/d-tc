@@ -136,8 +136,11 @@ const FAQ = () => {
     },
   ];
   return (
-    <>
-      <div className="grid lg:grid-cols-[40%_auto] pt-[100px] mx-4 md:mx-8 gap-4" id="faq">
+    <div className="bg-slate-300">
+      <div
+        className="grid lg:grid-cols-[40%_auto] pt-[100px] pb-[50px] mx-4 md:mx-8 gap-4"
+        id="faq"
+      >
         <div className="flex">
           <h2 className="w-full items-end text-start text-lg md:text-xl text-sky-950">
             UK Driving Licence: Frequently Asked Questions
@@ -149,7 +152,7 @@ const FAQ = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
