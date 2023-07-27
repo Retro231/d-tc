@@ -12,7 +12,7 @@ const Pricing = () => {
     navigate("/register");
   };
   return (
-    <>
+    <div className="bg-slate-300 pb-[50px]">
       <div className="w-[70%] md:w-full text-center md:text-left mx-auto">
         <SectionTitle
           title={`Pricing`}
@@ -86,7 +86,7 @@ const Pricing = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

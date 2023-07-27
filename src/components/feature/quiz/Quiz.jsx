@@ -41,8 +41,6 @@ const Quiz = ({ title }) => {
 
     setTransData(result.data);
     dispatch(setLoading(false));
-
-    console.log(result.data);
   };
 
   const handleTranslateBtn = () => {
@@ -185,7 +183,7 @@ const Quiz = ({ title }) => {
   return (
     <>
       {loading && <LoadingPage />}
-      <div className="w-[100%] h-screen p-4 md:p-8  md:px-24 mx-auto bg-slate-900 text-gray-300 mb-20">
+      <div className="w-[100%] h-screen p-4 md:p-8  md:px-24 mx-auto bg-slate-900 text-gray-300 mb-[300px]">
         {/* meta */}
         <div className="w-full">
           <div className="w-full mb-2 h-3 rounded-full bg-gray-800">
@@ -366,54 +364,54 @@ const Quiz = ({ title }) => {
             )}
           </div>
         </div>
-        {/* action  */}
-        <div className="fixed w-full left-0 bottom-0 py-4 px-24 bg-slate-800">
-          <div
-            className={`flex  gap-2 justify-center ${
-              currentIndex === questions.length - 1 &&
-              " max-[375px]:items-center max-[375px]:flex-col "
-            } `}
-          >
-            <div className="flex gap-1">
+      </div>
+      {/* action  */}
+      <div className="fixed w-full left-0 bottom-0 py-4 px-24 text-slate-300 bg-slate-800">
+        <div
+          className={`flex  gap-2 justify-center ${
+            currentIndex === questions.length - 1 &&
+            " max-[375px]:items-center max-[375px]:flex-col "
+          } `}
+        >
+          <div className="flex gap-1">
+            <button
+              className="btn bg-blue-700 hover:bg-blue-800 disabled:bg-slate-600"
+              disabled={currentIndex === 0}
+              onClick={handlePrev}
+            >
+              Prev
+            </button>
+            <button
+              className="btn bg-blue-700 hover:bg-blue-800 disabled:bg-slate-600"
+              disabled={currentIndex === questions.length - 1}
+              onClick={handleNext}
+            >
+              Next
+            </button>
+            <button
+              className="btn bg-yellow-700 hover:bg-yellow-800 disabled:bg-slate-600"
+              disabled={currentIndex === questions.length - 1}
+              onClick={handleNext}
+            >
+              Skip
+            </button>
+          </div>
+          <div className="flex gap-1">
+            {currentIndex === questions.length - 1 && (
               <button
-                className="btn bg-blue-700 hover:bg-blue-800 disabled:bg-slate-600"
-                disabled={currentIndex === 0}
-                onClick={handlePrev}
+                className="btn bg-green-700 hover:bg-green-800"
+                onClick={handleSubmit}
               >
-                Prev
+                Submit
               </button>
-              <button
-                className="btn bg-blue-700 hover:bg-blue-800 disabled:bg-slate-600"
-                disabled={currentIndex === questions.length - 1}
-                onClick={handleNext}
-              >
-                Next
-              </button>
-              <button
-                className="btn bg-yellow-700 hover:bg-yellow-800 disabled:bg-slate-600"
-                disabled={currentIndex === questions.length - 1}
-                onClick={handleNext}
-              >
-                Skip
-              </button>
-            </div>
-            <div className="flex gap-1">
-              {currentIndex === questions.length - 1 && (
-                <button
-                  className="btn bg-green-700 hover:bg-green-800"
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </button>
-              )}
-              <button
-                type="button"
-                className="btn bg-red-700 hover:bg-red-800"
-                onClick={handleQuit}
-              >
-                Quit
-              </button>
-            </div>
+            )}
+            <button
+              type="button"
+              className="btn bg-red-700 hover:bg-red-800"
+              onClick={handleQuit}
+            >
+              Quit
+            </button>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import SectionTitle from "../../SectionTitle/SectionTitle";
 
 const GetAppWrapper = () => {
   return (
-    <>
+    <div className="bg-slate-300">
       <div className="w-[95%] md:w-[65%] mx-auto" id="getApp">
         <SectionTitle
           title={`Practice offline and on the go with our UK Driving Theory
@@ -20,7 +20,7 @@ const GetAppWrapper = () => {
         <img className="w-[215px]" src={GooglePlay} alt="Google Play " />
         {/* </a> */}
       </div>
-    </>
+    </div>
   );
   // 215px 64px!important
 };

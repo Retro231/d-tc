@@ -20,7 +20,7 @@ const services = [
 ];
 const Services = () => {
   return (
-    <div id="services">
+    <div id="services" className="bg-slate-300">
       <SectionTitle title={"You'll Get.."}></SectionTitle>
       <div className="w-[95%] sm:w-[90%] lg:w-[75%] grid grid-cols-1 md:grid-cols-2  gap-3 mx-auto py-[30px]">
         {services.map((service, index) => (
