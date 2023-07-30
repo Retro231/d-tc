@@ -1,14 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { setQuestions, setTestState } from "../quiz/quizSlice";
 import PrimaryButton from "../../Button/PrimaryButton";
 import PrimaryButtonOutline from "../../Button/PrimaryButtonOutline";
+import { HashLink } from "react-router-hash-link";
 const Hero = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const questionsDB = useSelector((state) => state.db.value.questionsDB);
+  const { isLogedin } = useSelector((state) => state.auth.value);
   const demoSet = questionsDB.slice(0, 50);
   const handleDemoBtn = () => {
     console.log("clicked");
@@ -40,9 +41,9 @@ const Hero = () => {
             becoming a knowledgeable and skilled driver!
           </p>
           <section className="mt-10 flex sm:justify-center gap-3">
-            <Link to={"/pricing"}>
+            <HashLink to={isLogedin ? "/#categories" : "/pricing"} smooth>
               <PrimaryButton text="Start learning"></PrimaryButton>
-            </Link>
+            </HashLink>
             <PrimaryButtonOutline
               text="Free Mock Test"
               handleClick={handleDemoBtn}
