@@ -185,22 +185,23 @@ const Quiz = ({ title }) => {
       {loading && <LoadingPage />}
       <div className="w-[100%] h-screen p-4 md:p-8  md:px-24 mx-auto bg-slate-900 text-gray-300 mb-[300px]">
         {/* meta */}
-        <div className="w-full">
+        <div
+          className={`w-full ${
+            testState === "practice" ? "invisible hidden" : "block visible"
+          }`}
+        >
           <div className="w-full mb-2 h-3 rounded-full bg-gray-800">
             <div
               className="max-w-full h-3 rounded-full bg-orange-500"
               style={{ width: progressCount + "%" }}
             ></div>
           </div>
+
           <div className="flex flex-col sm:flex-row justify-between font-medium">
-            {testState !== "practice" ? (
-              <h6>
-                Remaining time: {time.min < 10 ? "0" + time.min : time.min} :
-                {time.sec < 10 ? "0" + time.sec : time.sec}
-              </h6>
-            ) : (
-              <div></div>
-            )}
+            <h6>
+              Remaining time: {time.min < 10 ? "0" + time.min : time.min} :
+              {time.sec < 10 ? "0" + time.sec : time.sec}
+            </h6>
 
             <h6 className="">progress: {Math.round(progressCount)}%</h6>
           </div>
