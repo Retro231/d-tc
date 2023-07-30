@@ -55,12 +55,12 @@ const Pricing = () => {
             </div>
             <hr className="bg-slate-900 h-[2px] w-full"></hr>
             <h2 className="text-[2rem] font-semibold">
-              £1.00<span className="font-light">/Unlimited</span>
+              £3.99<span className="font-light">/Unlimited</span>
             </h2>
             <ul>
               <li>All 750+ DVSA revision questions</li>
-              <li>New DVSA video case studies</li>
-              <li>Theory Exam Simulator</li>
+              <li>Unlimited Mock Test</li>
+              <li>Lifetime access</li>
               <li>Help center access</li>
             </ul>
             <div className="">

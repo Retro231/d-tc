@@ -112,7 +112,7 @@ const Quiz = ({ title }) => {
     return () => {
       clearInterval(timerInterval);
     };
-  });
+  }, [time]);
 
   // handle change after selecting an option
   const handleChange = (event) => {
