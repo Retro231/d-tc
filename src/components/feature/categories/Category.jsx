@@ -7,10 +7,13 @@ import { LockClosedIcon } from "@heroicons/react/24/solid";
 const Category = ({ id, title, iconName }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const questionsDB = useSelector((state) => state.db.value.questionsDB);
+  const { questionsDB, videoQuestionsDB } = useSelector(
+    (state) => state.db.value
+  );
   const { isLogedin, isSubscribed } = useSelector((state) => state.auth.value);
 
   const handleClick = () => {
+    // getQuestons by Category
     const categoryId = id;
     console.log(categoryId);
     const categoryQuestion = questionsDB.filter((item) => {
@@ -22,9 +25,11 @@ const Category = ({ id, title, iconName }) => {
     });
 
     if (isLogedin) {
-      dispatch(setQuestions(categoryQuestion));
+      // setting quiz questions
+      title !== "Video"
+        ? dispatch(setQuestions(categoryQuestion))
+        : dispatch(setQuestions(videoQuestionsDB));
       dispatch(setTestState("practice"));
-      console.log(categoryQuestion);
       navigate("/quizmenu", { state: { title } });
     } else {
       navigate("/login");
