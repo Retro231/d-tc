@@ -14,6 +14,7 @@ const CategoryList = () => {
           />
         );
       })}
+      <Category key={1} id={`video`} title={`Video`} iconName={`videoIcon`} />
     </div>
   );
 };

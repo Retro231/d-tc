@@ -13,7 +13,7 @@ import {
   setLogin,
   setSubscribed,
 } from "./components/feature/auth/authSlice";
-import { setQuestionsDB } from "./dbSlice";
+import { setQuestionsDB, setVideoQuestionsDB } from "./dbSlice";
 import { ref, get, child } from "firebase/database";
 import { db } from "./config/firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -59,10 +59,17 @@ function App() {
     // get question form firebase db
     const getQuestions = async () => {
       const dbRef = ref(ques_db);
-      let snapshot = await get(child(dbRef, `questions`));
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-        dispatch(setQuestionsDB(snapshot.val()));
+      let questions = await get(child(dbRef, `questions`));
+      let videoQuestions = await get(child(dbRef, `videoQuestions`));
+      if (questions.exists()) {
+        console.log(questions.val());
+        dispatch(setQuestionsDB(questions.val()));
+      } else {
+        console.log("no data found");
+      }
+      if (videoQuestions.exists()) {
+        console.log(videoQuestions.val());
+        dispatch(setVideoQuestionsDB(videoQuestions.val()));
       } else {
         console.log("no data found");
       }

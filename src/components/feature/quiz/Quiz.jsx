@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
-// import ReactPlayer from "react-player";
+import ReactPlayer from "react-player";
 import { next, prev, setRegAns, resetQuiz } from "./quizSlice";
 import { setLoading } from "../../../appSlice";
 import { useNavigate } from "react-router-dom";
@@ -190,6 +190,7 @@ const Quiz = ({ title }) => {
             testState === "practice" ? "invisible hidden" : "block visible"
           }`}
         >
+          {/* test state managed on clssname */}
           <div className="w-full mb-2 h-3 rounded-full bg-gray-800">
             <div
               className="max-w-full h-3 rounded-full bg-orange-500"
@@ -230,25 +231,23 @@ const Quiz = ({ title }) => {
                 alt="content"
               />
             )}
-            {/* {mediaType === "video" && content && (
-              <div className="text-center text-base-100 my-auto">
-                <h2>Video Preview:</h2>
-                <span>No Video</span>
+            {mediaType === "video" && content && (
+              <div className="player w-[300px] sm:w-[450px] mb-4">
+                <ReactPlayer
+                  url={content}
+                  controls={true}
+                  outline={true}
+                  width={"100%"}
+                  height={"auto"}
+                ></ReactPlayer>
               </div>
-            )} */}
-            {/* <div className="player">
-              <ReactPlayer
-                url={content}
-                controls={true}
-                outline={true}
-              ></ReactPlayer>
-            </div> */}
+            )}
           </div>
 
           {/* <img src={questionCircleIcon} alt="icon" /> */}
           {/* translate btn */}
           {testState === "practice" && (
-            <div className="inline-block absolute -top-6 sm:top-4 right-0 text-center">
+            <div className="inline-block absolute -top-3 sm:top-5 right-0 text-center">
               <span>Translate to :</span>
               <div className="flex gap-2 items-center mt-1">
                 <button
