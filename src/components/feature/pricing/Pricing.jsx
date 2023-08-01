@@ -35,7 +35,8 @@ const Pricing = () => {
             <ul>
               <li>Free Mock Test</li>
               <li> 2 Mock test </li>
-              <li>2 Practice Test </li>
+              <li>2 Category wise Practice</li>
+              <li className="line-through">Video questions</li>
               <li className="line-through">Help center access</li>
             </ul>
             <div>
@@ -60,6 +61,8 @@ const Pricing = () => {
             <ul>
               <li>All 750+ DVSA revision questions</li>
               <li>Unlimited Mock Test</li>
+              <li>Unlimited Category wise Practice</li>
+              <li>Video questions</li>
               <li>Lifetime access</li>
               <li>Help center access</li>
             </ul>

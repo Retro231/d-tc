@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogin } from "./authSlice";
-import Toast from "../../../utils/toast/MyToast";
+import MyToast from "../../../utils/toast/MyToast";
 import { setShow } from "../../../utils/toast/myToastSlice";
 import { setLoading } from "../../../appSlice";
 import LoginWithGmail from "./LoginWithGmail";
@@ -22,6 +22,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.app.value);
+  const { show } = useSelector((state) => state.myToast.value);
   const auth = getAuth();
 
   const firebaseErrorHandler = (err) => {
@@ -66,7 +67,7 @@ const Login = () => {
   return (
     <>
       <div className="reg-container">
-        <Toast error={serverError} />
+        {show && <MyToast error={serverError} />}
         <div className="reg-left">
           <h1 className="reg-title">Sign In</h1>
           <p className="reg-desc">To Free Driving theory test.</p>

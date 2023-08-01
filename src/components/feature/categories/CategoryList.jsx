@@ -14,7 +14,12 @@ const CategoryList = () => {
           />
         );
       })}
-      <Category key={1} id={`video`} title={`Video`} iconName={`videoIcon`} />
+      <Category
+        key={1}
+        id={`video`}
+        title={`Video`}
+        iconName={`videoIcon.png`}
+      />
     </div>
   );
 };

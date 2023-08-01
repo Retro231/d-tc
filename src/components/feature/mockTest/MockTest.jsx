@@ -8,22 +8,33 @@ const MockTest = ({ id, title, iconName }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogedin, isSubscribed } = useSelector((state) => state.auth.value);
-  const questionsDB = useSelector((state) => state.db.value.questionsDB);
+  const { questionsDB, videoQuestionsDB } = useSelector(
+    (state) => state.db.value
+  );
 
   const handleClick = () => {
-    const questions = questionsDB;
     const randomQuestions = [];
+    const randomVideoQuestions = [];
 
-    while (randomQuestions.length < Math.min(50, questions.length)) {
-      const randomIndex = Math.floor(Math.random() * questions.length);
-      if (!randomQuestions.includes(questions[randomIndex])) {
-        randomQuestions.push(questions[randomIndex]);
+    while (randomQuestions.length < Math.min(47, questionsDB.length)) {
+      const randomIndex = Math.floor(Math.random() * questionsDB.length);
+      if (!randomQuestions.includes(questionsDB[randomIndex])) {
+        randomQuestions.push(questionsDB[randomIndex]);
       }
     }
+
+    while (randomVideoQuestions.length < Math.min(3, videoQuestionsDB.length)) {
+      const randomIndex = Math.floor(Math.random() * videoQuestionsDB.length);
+      if (!randomVideoQuestions.includes(videoQuestionsDB[randomIndex])) {
+        randomVideoQuestions.push(videoQuestionsDB[randomIndex]);
+      }
+    }
+
+    const finalQuestion = [...randomQuestions, ...randomVideoQuestions];
+
     if (isLogedin) {
-      dispatch(setQuestions(randomQuestions));
+      dispatch(setQuestions(finalQuestion));
       dispatch(setTestState("mock"));
-      console.log(randomQuestions);
       navigate("/quizmenu", { state: { title } });
     } else {
       navigate("/login");
