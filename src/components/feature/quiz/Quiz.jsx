@@ -209,7 +209,7 @@ const Quiz = ({ title }) => {
         </div>
         {/* questions */}
         <div className="relative flex flex-col items-center">
-          <div className="flex flex-col items-center m-3 mt-8 sm:m-5">
+          <div className="flex flex-col items-center m-3 mt-14 sm:m-5">
             <h5 className="text-sm font-bold">
               Question: {currentIndex + 1} / {questions.length} :
             </h5>
@@ -236,7 +236,6 @@ const Quiz = ({ title }) => {
                 <ReactPlayer
                   url={content}
                   controls={true}
-                  outline={true}
                   width={"100%"}
                   height={"auto"}
                 ></ReactPlayer>
