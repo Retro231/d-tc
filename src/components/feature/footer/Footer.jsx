@@ -47,11 +47,11 @@ const Footer = () => {
             <h5 className="text-sm">Contact Us</h5>
             <a
               className="hover:text-amber-600 ease-in duration-500"
-              href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=retrosoftltd@gmail.com"
+              href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&to=help.dtestuk@gmail.com"
               target="_blank"
               rel="noreferrer"
             >
-              retrosoftltd@gmail.com
+              help.dtestuk@gmail.com
             </a>
           </div>
         </div>
