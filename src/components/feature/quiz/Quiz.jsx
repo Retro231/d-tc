@@ -1,5 +1,5 @@
 // import questionCircleIcon from "./../../assets/question-circle-fill.svg";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
@@ -51,25 +51,6 @@ const Quiz = ({ title }) => {
   };
 
   const percentagePerQuestion = (1 / questions.length) * 100;
-  // handle submit
-  const handleSubmit = () => {
-    setTransData(null);
-    setTranslate(false);
-    navigate("/quizResult", {
-      state: { title: title },
-      replace: true,
-    });
-  };
-  // handle quit
-  const handleQuit = () => {
-    setTransData(null);
-    setTranslate(false);
-    setChecked("");
-    setProgressCount(0);
-    dispatch(resetQuiz());
-    navigate("/", { replace: true });
-  };
-
   // timer
   let timerInterval;
   useEffect(() => {
@@ -114,24 +95,6 @@ const Quiz = ({ title }) => {
     };
   }, [time]);
 
-  // handle change after selecting an option
-  const handleChange = (event) => {
-    const { value } = event.target;
-    const { style } = event.target.parentNode;
-    setChecked(value);
-    dispatch(setRegAns({ value, currentQues: currentIndex }));
-    // console.log({ correctAnswer, value });
-    if (value === `${correctAnswer}`) {
-      // here value is number,correctAnswer is char;
-      style.border = "2px solid #00FF00";
-    } else {
-      style.border = "2px solid #FF0000";
-    }
-    setTimeout(() => {
-      style.border = "";
-      handleNext();
-    }, 100);
-  };
   // handle Next
   const handleNext = () => {
     setTransData(null);
@@ -168,6 +131,87 @@ const Quiz = ({ title }) => {
         return prev - percentagePerQuestion;
       });
     }
+  };
+  // handle submit
+  const handleSubmit = () => {
+    setTransData(null);
+    setTranslate(false);
+    navigate("/quizResult", {
+      state: { title: title },
+      replace: true,
+    });
+  };
+  // handle quit
+  const handleQuit = () => {
+    setTransData(null);
+    setTranslate(false);
+    setChecked("");
+    setProgressCount(0);
+    dispatch(resetQuiz());
+    navigate("/", { replace: true });
+  };
+
+  // handle change after selecting an option
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    const { style } = event.target.parentNode;
+    setChecked(value);
+    dispatch(setRegAns({ value, currentQues: currentIndex }));
+    if (value === `${correctAnswer}`) {
+      // here value is number,correctAnswer is char;
+      style.border = "2px solid #00FF00";
+    } else {
+      style.border = "2px solid #FF0000";
+    }
+    setTimeout(() => {
+      style.border = "";
+      handleNext();
+    }, 100);
+  };
+
+  const opt1ref = useRef(null);
+  const opt2ref = useRef(null);
+  const opt3ref = useRef(null);
+  const opt4ref = useRef(null);
+
+  const handleChangeForPrac = (event) => {
+    console.log(opt1ref.current.parentNode.style);
+    const { value } = event.target;
+    const { style } = event.target.parentNode;
+    setChecked(value);
+    dispatch(setRegAns({ value, currentQues: currentIndex }));
+
+    if (value !== `${correctAnswer}`) {
+      // here value is char ,correctAnswer is number;
+      style.border = "2px solid #FF0000";
+    }
+    switch (`${correctAnswer}`) {
+      case opt1ref.current.value:
+        opt1ref.current.parentNode.style.border = "2px solid #00FF00";
+        break;
+      case opt2ref.current.value:
+        opt2ref.current.parentNode.style.border = "2px solid #00FF00";
+        break;
+      case opt3ref.current.value:
+        opt3ref.current.parentNode.style.border = "2px solid #00FF00";
+        break;
+      case opt4ref.current.value:
+        opt4ref.current.parentNode.style.border = "2px solid #00FF00";
+        break;
+
+      default:
+        break;
+    }
+    setTimeout(() => {
+      style.border = "";
+      opt1ref.current.parentNode.style.border = "";
+      opt2ref.current.parentNode.style.border = "";
+      opt3ref.current.parentNode.style.border = "";
+      opt4ref.current.parentNode.style.border = "";
+
+      handleNext();
+    }, 200);
   };
   // prevent reload or page leave
   window.onbeforeunload = (event) => {
@@ -277,13 +321,16 @@ const Quiz = ({ title }) => {
               style={{ backgroundColor: checked === "0" && "palegoldenrod" }}
             >
               <input
+                ref={opt1ref}
                 className="appearance-none"
                 id="option1"
                 type="radio"
                 value="0"
                 name="option"
                 checked={checked === "0"}
-                onChange={handleChange}
+                onChange={
+                  testState === "practice" ? handleChangeForPrac : handleChange
+                }
               />
               {answers[0]}
             </label>
@@ -300,13 +347,16 @@ const Quiz = ({ title }) => {
               style={{ backgroundColor: checked === "1" && "palegoldenrod" }}
             >
               <input
+                ref={opt2ref}
                 className="appearance-none"
                 id="option2"
                 type="radio"
                 value="1"
                 name="option"
                 checked={checked === "1"}
-                onChange={handleChange}
+                onChange={
+                  testState === "practice" ? handleChangeForPrac : handleChange
+                }
               />
               {answers[1]}
             </label>
@@ -323,13 +373,16 @@ const Quiz = ({ title }) => {
               style={{ backgroundColor: checked === "2" && "palegoldenrod" }}
             >
               <input
+                ref={opt3ref}
                 className="appearance-none"
                 id="option3"
                 type="radio"
                 value="2"
                 name="option"
                 checked={checked === "2"}
-                onChange={handleChange}
+                onChange={
+                  testState === "practice" ? handleChangeForPrac : handleChange
+                }
               />
               {answers[2]}
             </label>
@@ -346,13 +399,16 @@ const Quiz = ({ title }) => {
               style={{ backgroundColor: checked === "3" && "palegoldenrod" }}
             >
               <input
+                ref={opt4ref}
                 className="appearance-none"
                 id="option4"
                 type="radio"
                 value="3"
                 name="option"
                 checked={checked === "3"}
-                onChange={handleChange}
+                onChange={
+                  testState === "practice" ? handleChangeForPrac : handleChange
+                }
               />
               {answers[3]}
             </label>
